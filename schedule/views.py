@@ -285,7 +285,7 @@ def delete_event(request, event_id, next=None, login_required=True):
     # Lastly redirect to the event detail of the recently create event
     """
     event = get_object_or_404(Event, id=event_id)
-    next = next or reverse('day_calendar', args=[event.calendar.slug])
+    next = next or reverse('month_calendar', args=[event.calendar.slug])
     next = get_next_url(request, next)
     return delete_object(request,
                          model = Event,

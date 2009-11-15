@@ -47,7 +47,7 @@ class Period(object):
         occurrences = []
         if hasattr(self, "occurrence_pool") and self.occurrence_pool is not None:
             for occurrence in self.occurrence_pool:
-                if occurrence.start <= self.end and occurrence.end >= self.start:
+                if occurrence.start < self.end and occurrence.end > self.start:
                     occurrences.append(occurrence)
             return occurrences
         for event in self.events:
@@ -77,7 +77,7 @@ class Period(object):
             return None
         started = False
         ended = False
-        if occurrence.start >= self.start and occurrence.start < self.end:
+        if occurrence.start > self.start and occurrence.start < self.end:
             started = True
         if occurrence.end >=self.start and occurrence.end< self.end:
             ended = True

@@ -197,11 +197,11 @@ def prevnext( target, slug, period, fmt=None):
     }
     return context
 
-@register.inclusion_tag("schedule/_detail.html")
-def detail( occurrence ):
-    context = {
+@register.inclusion_tag("schedule/_detail.html", takes_context=True)
+def detail(context, occurrence):
+    context.update ( {
         'occurrence' : occurrence,
-    }
+    })
     return context
 
 def _cook_occurrences(period, occs, width, height):

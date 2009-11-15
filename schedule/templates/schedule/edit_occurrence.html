@@ -2,15 +2,39 @@
 {% load i18n %}
 
 {% block body %}
-<b>{% trans "Create or change occurrence. All fields are required." %}</b>
+<h1>Editer un événement</h1>
 <br/><br/>
 <form action="" method="post">
-<table>
-{{ form.as_table }}
-</table>
-<br/>
-<input type="submit" value="{% trans "Save" %}">
-<input type="button" value="{% trans "Cancel" %}" onclick="window.location='{{next}}'"/>
-<input type="hidden" name="next" value="{{next|default:""}}"/>
+    <fieldset>
+        {% if error %}
+		<div class="notification error png_bg">
+			<div class="content">
+				<ul>
+	                <li>{{ error|safe }}</li>
+	            </ul>
+			</div>
+		</div>
+		{% endif %}
+		<p>
+		{{ form.title.errors }}
+		<label>Objet:</label>
+		{{ form.title }}
+	    </p>
+		<p class="dates">
+		{{ form.start.errors }}
+    	{{ form.end.errors }}
+		<label>Date:</label>
+		{{ form.start }} au {{ form.end }}
+	    </p>
+	    <p>
+		{{ form.description.errors }}
+		<label>description:</label>
+		{{ form.description }}
+	    </p>
+        <br/>
+        <input type="submit" value="{% trans "Save" %}"> ou <a href="{{next}}">Annuler</a>
+        <input type="hidden" name="next" value="{{next|default:""}}"/>
+    </fieldset>
+
 </form>
 {% endblock %}
