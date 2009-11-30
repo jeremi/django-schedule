@@ -22,6 +22,12 @@ class EventForm(SpanForm):
     
     end_recurring_period = forms.DateTimeField(help_text = _("This date is ignored for one time only events."), required=False)
     
+    
+    def clean_end_recurring_period(self):
+        if self.cleaned_data["rule"] and self.cleaned_data["end_recurring_period"] == None:
+            raise forms.ValidationError(_("You need to specify an end date"))
+        return self.cleaned_data["end_recurring_period"]
+        
     class Meta:
         model = Event
         exclude = ('creator', 'created_on', 'calendar')
